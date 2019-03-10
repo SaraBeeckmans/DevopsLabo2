@@ -24,7 +24,7 @@ Vagrant.configure("2") do |config|
     end
 
     config.vm.provider "virtualbox" do |vb|
-      vb.gui = true
+      vb.gui = false
       vb.memory = "4000"
       vb.cpus = 2
     end
@@ -90,6 +90,7 @@ Vagrant.configure("2") do |config|
    SHELL
 
    config.vm.provision "shell", path: "./create_users_peter"
+   config.vm.provision "shell", path: "./create_users_sara"
    config.vm.provision "shell", path: "./disable_sshLoginPasswd"
 
 end

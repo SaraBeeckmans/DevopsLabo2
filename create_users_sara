@@ -1,0 +1,21 @@
+#!/bin/bash
+
+echo Creating user sara
+
+dir=/home/sara
+usr=sara
+publickey="ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC/T0PeeFjCUftqdyn3IzfXvaXfVFsqjUqYY4DtQT9SoH1ciMGZtMqL3xukBIbRGTegptJZniT6iDsFbZqi/XDFe8Iq6BJ2pXdtBgtfNJ0c1q8yPLWq2jvYup8mDL6JHgEkMbrZQwhzvgPFN2MtGU/AXtsZnI05jZSAwhPSa1PmkuHUHTgwVccFWnuD+3iDosTZ0vq0oWEETt8eOQCxHFmLA259sdkfsh7GIlZ9oDDTxO9KpnH+j5KOooyi7iKCW2g/BKtLj/W4ln+K7kq8fpJzaY5Hj5+L26u1ZJy0I0iRRKep2snDGYXhyt4qgHCjktCylP0fDRMaNcr6IU4dlFs1 sara@Saras-MacBook-Pro.local"
+
+
+if [[ ! -d $dir ]]; then
+  mkdir $dir
+  mkdir $dir/.ssh
+  touch $dir/.ssh/authorized_keys
+  echo $publickey >> $dir/.ssh/authorized_keys
+
+  useradd -p $(openssl passwd -1 ChangeMe) -d $dir -s /bin/bash $usr
+  chown -R $usr:$usr $dir
+  usermod -aG sudo $usr
+else
+  echo "$dir already exists. User NOT created"
+fi
