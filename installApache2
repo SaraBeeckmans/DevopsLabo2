@@ -1,0 +1,26 @@
+#!/bin/bash
+
+configfile=/etc/apache2/sites-available/devopslabo2.conf
+
+apt install -y apache2
+touch $configfile
+
+echo "<VirtualHost 192.168.33.10:80>
+ServerName 192.168.33.10
+ProxyPass / http://localhost:4200/
+ProxyPassReverse / http://localhost:4200/
+ErrorLog ${APACHE_LOG_DIR}/error.log
+CustomLog ${APACHE_LOG_DIR}/access.log combined
+</VirtualHost>
+" > $configfile
+
+
+
+a2enmod proxy
+a2enmod proxy_http
+a2enmod proxy_balancer
+a2enmod lbmethod_byrequests
+if [[ ! -d $dir/$projectname ]]; then
+  ln /etc/apache2/sites-available/devopslabo2.conf /etc/apache2/sites-enabled/devopslabo2.conf
+fi
+systemctl restart apache2

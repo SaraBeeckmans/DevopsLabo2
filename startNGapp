@@ -1,0 +1,13 @@
+#!/bin/bash
+
+
+echo Starting APPLICATION
+
+dir=/home/sara/DevopsLabo1/Labo1
+
+# Start angular app as user sara
+cd $dir
+
+npm uninstall angular-cli
+npm audit fix --force
+sudo -u sara -H nohup npm start &>/dev/null &

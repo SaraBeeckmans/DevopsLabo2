@@ -50,7 +50,7 @@ Vagrant.configure("2") do |config|
 
   # Create a private network, which allows host-only access to the machine
   # using a specific IP.
-  # config.vm.network "private_network", ip: "192.168.33.10"
+   config.vm.network "private_network", ip: "192.168.33.10"
 
   # Create a public network, which generally matched to bridged network.
   # Bridged networks make the machine appear as another physical device on
@@ -82,17 +82,19 @@ Vagrant.configure("2") do |config|
   # Puppet, Chef, Ansible, Salt, and Docker are also available. Please see the
   # documentation for more information about their specific syntax and use.
 
-  config.vm.network "forwarded_port", guest: 2222, host: 22, host_ip: "127.0.0.1"
+  #config.vm.network "forwarded_port", guest: 2222, host: 22, host_ip: "127.0.0.1"
+  #config.vm.network "forwarded_port", guest: 81, host: 80, host_ip: "127.0.0.1"
 
    config.vm.provision "shell", inline: <<-SHELL
      apt update
-  #   apt-get install -y apache2
    SHELL
 
    config.vm.provision "shell", path: "./create_users_peter"
    config.vm.provision "shell", path: "./create_users_sara"
    config.vm.provision "shell", path: "./disable_sshLoginPasswd"
+   config.vm.provision "shell", path: "./installApache2"
    config.vm.provision "shell", path: "./installAngular"
    config.vm.provision "shell", path: "./gitoperations"
+   config.vm.provision "shell", path: "./startNGapp"
 
 end
