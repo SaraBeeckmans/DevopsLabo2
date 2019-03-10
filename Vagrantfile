@@ -82,7 +82,7 @@ Vagrant.configure("2") do |config|
   # Puppet, Chef, Ansible, Salt, and Docker are also available. Please see the
   # documentation for more information about their specific syntax and use.
 
-  config.vm.network "forwarded_port", guest: 2222, host: 222, host_ip: "127.0.0.1"
+  config.vm.network "forwarded_port", guest: 2222, host: 22, host_ip: "127.0.0.1"
 
    config.vm.provision "shell", inline: <<-SHELL
      apt update
@@ -90,5 +90,6 @@ Vagrant.configure("2") do |config|
    SHELL
 
    config.vm.provision "shell", path: "./create_users_peter"
+   config.vm.provision "shell", path: "./disable_sshLoginPasswd"
 
 end
