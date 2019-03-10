@@ -1,0 +1,17 @@
+#!/bin/bash
+
+dir=/home/sara
+usr=sara
+projectname=DevopsLabo1
+
+#Install GIT
+apt install -y git
+
+
+if [[ ! -d $dir/$projectname ]]; then
+  cd $dir
+  sudo -u sara -H git clone https://github.com/SaraBeeckmans/$projectname.git
+else
+  cd $dir/$projectname
+  sudo -u sara -H git pull
+fi
