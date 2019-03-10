@@ -20,7 +20,7 @@ a2enmod proxy
 a2enmod proxy_http
 a2enmod proxy_balancer
 a2enmod lbmethod_byrequests
-if [[ ! -d $dir/$projectname ]]; then
-  ln /etc/apache2/sites-available/devopslabo2.conf /etc/apache2/sites-enabled/devopslabo2.conf
+if [[ ! -f $configfile ]]; then
+  ln -s /etc/apache2/sites-available/devopslabo2.conf /etc/apache2/sites-enabled/devopslabo2.conf
 fi
 systemctl restart apache2
