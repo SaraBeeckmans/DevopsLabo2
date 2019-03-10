@@ -89,7 +89,7 @@ Vagrant.configure("2") do |config|
      apt update
    SHELL
 
-   config.vm.provision "shell", path: "./create_users_peter"
+#   config.vm.provision "shell", path: "./create_users_peter"
    config.vm.provision "shell", path: "./create_users_sara"
    config.vm.provision "shell", path: "./disable_sshLoginPasswd"
    config.vm.provision "shell", path: "./installApache2"
