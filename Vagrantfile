@@ -12,7 +12,25 @@ Vagrant.configure("2") do |config|
 
   # Every Vagrant development environment requires a box. You can search for
   # boxes at https://vagrantcloud.com/search.
-  config.vm.box = "base"
+
+#  config.vm.box = "generic/ubuntu-18.04"
+  config.vm.box = "bento/ubuntu-18.04"
+
+    #To make the VM show up in the VM-Fusion tool
+    config.vm.provider "vmware_desktop" do |v|
+      v.gui = false
+      v.memory = "8192"
+      v.cpus = 2
+    end
+
+    config.vm.provider "virtualbox" do |vb|
+      vb.gui = true
+      vb.memory = "4000"
+      vb.cpus = 2
+    end
+
+
+
 
   # Disable automatic box update checking. If you disable this, then
   # boxes will only be checked for updates when the user runs
@@ -63,8 +81,14 @@ Vagrant.configure("2") do |config|
   # Enable provisioning with a shell script. Additional provisioners such as
   # Puppet, Chef, Ansible, Salt, and Docker are also available. Please see the
   # documentation for more information about their specific syntax and use.
-  # config.vm.provision "shell", inline: <<-SHELL
-  #   apt-get update
+
+  config.vm.network "forwarded_port", guest: 2222, host: 222, host_ip: "127.0.0.1"
+
+   config.vm.provision "shell", inline: <<-SHELL
+     apt update
   #   apt-get install -y apache2
-  # SHELL
+   SHELL
+
+   config.vm.provision "shell", path: "./create_users_peter"
+
 end
