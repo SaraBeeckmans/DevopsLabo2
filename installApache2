@@ -1,6 +1,7 @@
 #!/bin/bash
 
 configfile=/etc/apache2/sites-available/devopslabo2.conf
+linkfile=/etc/apache2/sites-enabled/devopslabo2.conf
 
 apt install -y apache2
 touch $configfile
@@ -20,7 +21,10 @@ a2enmod proxy
 a2enmod proxy_http
 a2enmod proxy_balancer
 a2enmod lbmethod_byrequests
-if [[ ! -f $configfile ]]; then
-  ln -s /etc/apache2/sites-available/devopslabo2.conf /etc/apache2/sites-enabled/devopslabo2.conf
+if [[ ! -f $linkfile ]]; then
+  echo "Creating ln -s"
+  ln -s $configfile $linkfile
+else
+  echo "Config file already vaa"
 fi
 systemctl restart apache2
